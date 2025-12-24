@@ -267,7 +267,7 @@ function generatePrompt() {
 2. The overall mood and energy you sense from this board
 3. Three positive traits or strengths reflected in my choices
 
-Be encouraging, specific, and insightful. Help me see the deeper patterns in what I've created.
+Help me see the deeper patterns in what I've created.
 
 Context from my reflection process:
 
