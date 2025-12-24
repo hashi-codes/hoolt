@@ -43,28 +43,32 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function checkFuture() {
-    const filled = ['future-1', 'future-2', 'future-3'].every(id => 
+    // At least 1 field must be filled
+    const filled = ['future-1', 'future-2', 'future-3'].some(id => 
         document.getElementById(id).value.trim()
     );
     document.getElementById('btn-future').disabled = !filled;
 }
 
 function checkIntuitive() {
-    const filled = ['intuitive-1', 'intuitive-2', 'intuitive-3'].every(id => 
+    // At least 1 field must be filled
+    const filled = ['intuitive-1', 'intuitive-2', 'intuitive-3'].some(id => 
         document.getElementById(id).value.trim()
     );
     document.getElementById('btn-intuitive').disabled = !filled;
 }
 
 function checkGoals() {
-    const filled = ['goal-1', 'goal-2', 'goal-3'].every(id => 
+    // At least 1 field must be filled
+    const filled = ['goal-1', 'goal-2', 'goal-3'].some(id => 
         document.getElementById(id).value.trim()
     );
     document.getElementById('btn-goals').disabled = !filled;
 }
 
 function checkMBS() {
-    const filled = ['mind', 'body', 'soul'].every(id => 
+    // At least 1 field must be filled
+    const filled = ['mind', 'body', 'soul'].some(id => 
         document.getElementById(id).value.trim()
     );
     document.getElementById('btn-mbs').disabled = !filled;
@@ -106,7 +110,7 @@ function startBreathing() {
 function runBreathCycle() {
     const instructionEl = document.getElementById('breath-instruction');
     
-    if (breathingCycle >= 3) {
+    if (breathingCycle >= 2) {
         instructionEl.textContent = "Complete ✓";
         instructionEl.classList.remove('inhale', 'exhale');
         setTimeout(() => {
@@ -162,17 +166,17 @@ function generateSummary() {
             document.getElementById('future-1').value,
             document.getElementById('future-2').value,
             document.getElementById('future-3').value
-        ],
+        ].filter(v => v.trim()),
         intuitive: [
             document.getElementById('intuitive-1').value,
             document.getElementById('intuitive-2').value,
             document.getElementById('intuitive-3').value
-        ],
+        ].filter(v => v.trim()),
         goals: [
             document.getElementById('goal-1').value,
             document.getElementById('goal-2').value,
             document.getElementById('goal-3').value
-        ],
+        ].filter(v => v.trim()),
         mind: document.getElementById('mind').value,
         body: document.getElementById('body').value,
         soul: document.getElementById('soul').value,
@@ -185,29 +189,35 @@ function generateSummary() {
 
     let html = '';
     
-    html += `<div class="summary-section">
-        <div class="summary-title">✨ Future Self - Key Features</div>
-        <div class="summary-content"><ul>`;
-    data.future.forEach(item => {
-        if (item) html += `<li>${item}</li>`;
-    });
-    html += `</ul></div></div>`;
+    if (data.future.length > 0) {
+        html += `<div class="summary-section">
+            <div class="summary-title">✨ Future Self - Key Features</div>
+            <div class="summary-content"><ul>`;
+        data.future.forEach(item => {
+            html += `<li>${item}</li>`;
+        });
+        html += `</ul></div></div>`;
+    }
 
-    html += `<div class="summary-section">
-        <div class="summary-title">💭 Intuitive Insights</div>
-        <div class="summary-content"><ul>`;
-    data.intuitive.forEach(item => {
-        if (item) html += `<li>${item}</li>`;
-    });
-    html += `</ul></div></div>`;
+    if (data.intuitive.length > 0) {
+        html += `<div class="summary-section">
+            <div class="summary-title">💭 Intuitive Insights</div>
+            <div class="summary-content"><ul>`;
+        data.intuitive.forEach(item => {
+            html += `<li>${item}</li>`;
+        });
+        html += `</ul></div></div>`;
+    }
 
-    html += `<div class="summary-section">
-        <div class="summary-title">🎯 Grand Goals</div>
-        <div class="summary-content"><ul>`;
-    data.goals.forEach(item => {
-        if (item) html += `<li>${item}</li>`;
-    });
-    html += `</ul></div></div>`;
+    if (data.goals.length > 0) {
+        html += `<div class="summary-section">
+            <div class="summary-title">🎯 Grand Goals</div>
+            <div class="summary-content"><ul>`;
+        data.goals.forEach(item => {
+            html += `<li>${item}</li>`;
+        });
+        html += `</ul></div></div>`;
+    }
 
     html += `<div class="summary-section">
         <div class="summary-title">🧠 Mind</div>
@@ -298,34 +308,43 @@ function copyPrompt() {
 }
 
 function copySummary() {
-    // Get all the data
-    const future = ['future-1', 'future-2', 'future-3'].map(id => document.getElementById(id).value).filter(v => v);
-    const intuitive = ['intuitive-1', 'intuitive-2', 'intuitive-3'].map(id => document.getElementById(id).value).filter(v => v);
-    const goals = ['goal-1', 'goal-2', 'goal-3'].map(id => document.getElementById(id).value).filter(v => v);
+    // Get all the data, filter out empty values
+    const future = ['future-1', 'future-2', 'future-3'].map(id => document.getElementById(id).value).filter(v => v.trim());
+    const intuitive = ['intuitive-1', 'intuitive-2', 'intuitive-3'].map(id => document.getElementById(id).value).filter(v => v.trim());
+    const goals = ['goal-1', 'goal-2', 'goal-3'].map(id => document.getElementById(id).value).filter(v => v.trim());
     const mind = document.getElementById('mind').value;
     const body = document.getElementById('body').value;
     const soul = document.getElementById('soul').value;
-    const symbols = ['symbol-1', 'symbol-2', 'symbol-3'].map(id => document.getElementById(id).value).filter(v => v);
+    const symbols = ['symbol-1', 'symbol-2', 'symbol-3'].map(id => document.getElementById(id).value).filter(v => v.trim());
 
     // Format as text
     let summaryText = 'MY 2026 VISION BOARD KEYWORDS\n\n';
     
-    summaryText += '✨ FUTURE SELF - KEY FEATURES:\n';
-    future.forEach((item, i) => summaryText += `${i + 1}. ${item}\n`);
+    if (future.length > 0) {
+        summaryText += '✨ FUTURE SELF - KEY FEATURES:\n';
+        future.forEach((item, i) => summaryText += `${i + 1}. ${item}\n`);
+        summaryText += '\n';
+    }
     
-    summaryText += '\n💭 INTUITIVE INSIGHTS:\n';
-    intuitive.forEach((item, i) => summaryText += `${i + 1}. ${item}\n`);
+    if (intuitive.length > 0) {
+        summaryText += '💭 INTUITIVE INSIGHTS:\n';
+        intuitive.forEach((item, i) => summaryText += `${i + 1}. ${item}\n`);
+        summaryText += '\n';
+    }
     
-    summaryText += '\n🎯 GRAND GOALS:\n';
-    goals.forEach((item, i) => summaryText += `${i + 1}. ${item}\n`);
+    if (goals.length > 0) {
+        summaryText += '🎯 GRAND GOALS:\n';
+        goals.forEach((item, i) => summaryText += `${i + 1}. ${item}\n`);
+        summaryText += '\n';
+    }
     
-    summaryText += '\n🧠 MIND NURTURING:\n';
-    summaryText += mind + '\n';
+    summaryText += '🧠 MIND NURTURING:\n';
+    summaryText += mind + '\n\n';
     
-    summaryText += '\n💪 BODY NURTURING:\n';
-    summaryText += body + '\n';
+    summaryText += '💪 BODY NURTURING:\n';
+    summaryText += body + '\n\n';
     
-    summaryText += '\n✨ SOUL NURTURING:\n';
+    summaryText += '✨ SOUL NURTURING:\n';
     summaryText += soul + '\n';
     
     if (symbols.length > 0) {
