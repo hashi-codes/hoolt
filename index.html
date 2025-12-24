@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOOLT - A Guided Journey</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+        <div class="progress-text" id="progress-text">Step 1 of 7</div>
+    </div>
+
+    <div class="container">
+        <!-- Step 0: Welcome -->
+        <div class="step active" id="step-0">
+            <div class="card">
+                <div class="logo">HOOLT</div>
+                <h1>A Guided Journey</h1>
+                
+                <div class="notice-box">
+                    <p><strong>This is not a vision board renderer.</strong></p>
+                    <p>This is a process to assist you in creating your own vision board.</p>
+                </div>
+                
+                <p class="intro-text">
+                    Take time to reflect on who you want to become.<br>
+                    Let's do this with intention.
+                </p>
+                
+                <div style="text-align: center;">
+                    <button class="btn-primary" onclick="nextStep()">Start Now</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Breathe -->
+        <div class="step" id="step-1">
+            <div class="card">
+                <div class="icon">🌬️</div>
+                <h2>Let's clear your mind and create a canvas for your thoughts.</h2>
+                <p class="subtitle">Create the right space</p>
+                
+                <div class="instruction">
+                    Breathe in and out. Let's start with two cycles.
+                </div>
+
+                <div id="breath-section">
+                    <div id="breath-instruction" class="breath-text">Press start when you're ready</div>
+                    <button class="btn-timer" id="breath-btn" onclick="startBreathing()">Start Breathing Exercise</button>
+                </div>
+
+                <div class="button-group" style="margin-top: 50px;">
+                    <button class="btn-secondary" onclick="prevStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()" id="btn-breath">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Soundtrack -->
+        <div class="step" id="step-2">
+            <div class="card">
+                <div class="icon">🎧</div>
+                <h2>What soundtrack allows you to channel your vibe for 2026?</h2>
+                <p class="subtitle">Play it in the background now, unless it's too much of a mental distraction</p>
+                
+                <div style="text-align: center; margin: 40px 0;">
+                    <div class="headphones-visual">🎵 🎧 🎵</div>
+                    <p class="instruction" style="border: none; background: transparent; padding: 20px 0;">
+                        Take a moment to find and play your song.<br>
+                        Let the music set the energy for this journey.
+                    </p>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="prevStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Future Self -->
+        <div class="step" id="step-3">
+            <div class="card">
+                <div class="icon">✨</div>
+                <h2>Visualise yourself</h2>
+                <p class="subtitle">Not just for 2026, but the version of yourself you want to be, generally</p>
+                
+                <div class="instruction">
+                    Write down <strong>3 key features</strong> that this person has.
+                </div>
+
+                <div class="input-group">
+                    <label>First key feature:</label>
+                    <input type="text" id="future-1" placeholder="e.g., Charismatic">
+                </div>
+
+                <div class="input-group">
+                    <label>Second key feature:</label>
+                    <input type="text" id="future-2" placeholder="e.g., Wears a black blazer">
+                </div>
+
+                <div class="input-group">
+                    <label>Third key feature:</label>
+                    <input type="text" id="future-3" placeholder="e.g., Kind to others">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="prevStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()" id="btn-future">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Intuitive -->
+        <div class="step" id="step-4">
+            <div class="card">
+                <div class="icon">💭</div>
+                <h2>Breathe in and channel your intuition.
+                    Jot down a few words that come to you instinctually</h2>
+                
+                <div class="instruction">
+                    30 seconds. Don't overthink it, just type it down
+                </div>
+
+                <div id="timer-section" style="text-align: center; margin: 30px 0;">
+                    <button class="btn-timer" onclick="startTimer()">Start 30 Second Timer ⏱️</button>
+                </div>
+
+                <div id="timer-display" style="display: none;">
+                    <div class="timer" id="timer">30s</div>
+                </div>
+
+                <div class="input-group">
+                    <label>First thought:</label>
+                    <input type="text" id="intuitive-1" placeholder="...">
+                </div>
+
+                <div class="input-group">
+                    <label>Second thought:</label>
+                    <input type="text" id="intuitive-2" placeholder="...">
+                </div>
+
+                <div class="input-group">
+                    <label>Third thought:</label>
+                    <input type="text" id="intuitive-3" placeholder="...">
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="prevStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()" id="btn-intuitive">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Grand Goals -->
+        <div class="step" id="step-5">
+            <div class="card">
+                <div class="icon">🎯</div>
+                <h2>The grand goals you would like to achieve</h2>
+                <p class="subtitle">What do you want to accomplish?</p>
+
+                <div class="input-group">
+                    <label>Goal #1:</label>
+                    <textarea id="goal-1"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Goal #2:</label>
+                    <textarea id="goal-2"></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>Goal #3:</label>
+                    <textarea id="goal-3" ></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="prevStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()" id="btn-goals">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 6: Mind Body Soul -->
+        <div class="step" id="step-6">
+            <div class="card">
+                <div class="icon">🧘</div>
+                <h2>How you want to nurture your mind, body and soul in 2026</h2>
+                <p class="subtitle">Consider how this can help you achieve your goals</p>
+                
+                <div class="instruction">
+                    <strong>Try to be specific.</strong><br>
+                    Not just "gain muscle tone" → specify "Do more pilates to strengthen my core"<br>
+                    Not just "learn German" → "Get 50% done with learning German by July"
+                </div>
+
+                <div class="input-group">
+                    <label>🧠 Mind - How will you nurture your mental growth?</label>
+                    <textarea id="mind" placeholder="Upskilling, mindset, mental habits..."></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>💪 Body - How will you nurture your physical health?</label>
+                    <textarea id="body" placeholder="Movement, nutrition, self-love..."></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>✨ Soul - How will you nurture your spiritual wellbeing?</label>
+                    <textarea id="soul" placeholder="Ritual, meditation, creative practises..."></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="prevStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()" id="btn-mbs">Next →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 7: Symbols -->
+        <div class="step" id="step-7">
+            <div class="card">
+                <div class="icon">🔮</div>
+                <h2>Signs or symbols that keep showing up to me</h2>
+                <p class="subtitle">Ways the universe is communicating or reassuring me</p>
+                
+                <div class="instruction">
+                    This could be recurring numbers, animals, or even a colour.<br>
+                    <em>These fields are optional.</em>
+                </div>
+
+                <div class="input-group">
+                    <label>1:</label>
+                    <input type="text" id="symbol-1" placeholder="e.g., 1111, butterflies, the color gold...">
+                </div>
+
+                <div class="input-group">
+                    <label>2:</label>
+                    <input type="text" id="symbol-2" >
+                </div>
+
+                <div class="input-group">
+                    <label>3:</label>
+                    <input type="text" id="symbol-3" >
+                </div>
+
+                <div class="button-group">
+                    <button class="btn-secondary" onclick="prevStep()">← Back</button>
+                    <button class="btn-primary" onclick="nextStep()">Take Me to My Summary →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 8: Summary -->
+        <div class="step" id="step-8">
+            <div class="card">
+                <div class="icon">🌟</div>
+                <h2>Your Keywords for Your Vision Board</h2>
+                
+                <div style="text-align: right; margin-bottom: 10px;">
+                    <button class="copy-summary-btn" onclick="copySummary()">📋 Copy Summary</button>
+                </div>
+                
+                <div class="summary-box" id="summary-box">
+                    <!-- Summary will be inserted here -->
+                </div>
+
+                <h3 style="margin: 50px 0 20px 0; font-size: 22px; font-weight: 400;">Next Steps:</h3>
+                
+                <ol class="instructions-list">
+                    <li><strong>Step 1:</strong> Translate the ones that mean the most to you into images for your vision board. You don't have to rush this process, keep the atmosphere and intentional thinking going, before moving to step 2.</li>
+                    <li><strong>Step 2:</strong> Once you have your final vision board, upload it to ChatGPT or any other AI platform with the following prompt:</li>
+                </ol>
+
+                <div class="prompt-box" id="prompt-box">
+                    <button class="copy-btn" onclick="copyPrompt()">Copy Prompt</button>
+                    <div id="ai-prompt">
+                        <!-- AI prompt will be inserted here -->
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 50px 0 30px 0;">
+                    <p style="font-size: 18px; margin-bottom: 20px;">Thank you for following this HOOLT journey</p>
+                    <a href="https://form.typeform.com/to/T1o4S2cu" target="_blank" class="btn-primary" style="display: inline-block; text-decoration: none; padding: 18px 50px;">
+                        Complete Feedback
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
